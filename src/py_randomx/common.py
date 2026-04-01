@@ -1,6 +1,5 @@
 from struct import pack, unpack
 
-
 EightByte = 18446744073709551616
 RANDOMX_PROGRAM_SIZE = 256
 mantissaSize = 52
@@ -9,7 +8,7 @@ mantissaMask = 4503599627370495
 exponentMask = 2047
 RANDOMX_JUMP_BITS = 8
 RANDOMX_JUMP_OFFSET = 8
-RANDOMX_DATASET_BASE_SIZE  = 2147483648
+RANDOMX_DATASET_BASE_SIZE = 2147483648
 RANDOMX_DATASET_EXTRA_SIZE = 33554368
 RANDOMX_DATASET_ITEM_SIZE = 64
 RANDOMX_SCRATCHPAD_L3 = 2097152
@@ -96,8 +95,7 @@ def getModCond(mod):
 
 
 def reciprocal(divisor):
-    p2exp63 = 1 << 63;
-
+    p2exp63 = 1 << 63
     quotient = p2exp63 // divisor
     remainder = p2exp63 % divisor
 
@@ -110,7 +108,7 @@ def reciprocal(divisor):
 
     shift = 0
     while shift < bsr:
-        if (remainder >= divisor - remainder):
+        if remainder >= divisor - remainder:
             quotient = quotient * 2 + 1
             remainder = remainder * 2 - divisor
         else:
@@ -129,11 +127,11 @@ def getScratchpadAddress(src, imm, memMask):
 def vec_scale(a):
     mask = 0x80F0000000000000
 
-    a['lo'] = unpack('Q', pack('d', a['lo']))[0] ^ mask
-    a['hi'] = unpack('Q', pack('d', a['hi']))[0] ^ mask
+    a["lo"] = unpack("Q", pack("d", a["lo"]))[0] ^ mask
+    a["hi"] = unpack("Q", pack("d", a["hi"]))[0] ^ mask
 
-    a['lo'] = unpack('d', pack('Q', a['lo']))[0]
-    a['hi'] = unpack('d', pack('Q', a['hi']))[0] 
+    a["lo"] = unpack("d", pack("Q", a["lo"]))[0]
+    a["hi"] = unpack("d", pack("Q", a["hi"]))[0]
 
 
 def rotr(a, b):
@@ -150,7 +148,8 @@ def toBigEndian(byte):
 
 
 def LO(x):
-    return x & 0xffffffff
+    return x & 0xFFFFFFFF
+
 
 def HI(x):
     return x >> 32
